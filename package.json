@@ -1,0 +1,9 @@
+{
+  "name": "ally-rentals",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Ally Rentals LLC: rental listings site with admin backend",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=18" }
+}
