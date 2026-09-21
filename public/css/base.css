@@ -1,0 +1,60 @@
+:root{
+  --pine:#0F3B3A; --pine-2:#175451; --pine-deep:#0A2928;
+  --ink:#10201F; --slate:#4A5E5D; --mist:#F1F5F4; --paper:#fff;
+  --line:#D9E3E1; --sage:#BCD3CC; --sage-soft:#E3EEEA;
+  --brass:#E3A72F; --brass-deep:#9A6B05; --brass-soft:#FBEBC6;
+  --danger:#B3402E; --ok:#17603F; --ok-soft:#DDF1E8;
+  --font-display:'Bricolage Grotesque',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-body:'Figtree',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --shadow:0 24px 48px -28px rgba(15,59,58,.55);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;font-family:var(--font-body);color:var(--ink);background:var(--mist);line-height:1.55;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+h1,h2,h3,h4{font-family:var(--font-display);margin:0;line-height:1.1;letter-spacing:-.02em}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--brass);outline-offset:2px;border-radius:8px}
+[hidden]{display:none!important}
+
+.i{width:1.15em;height:1.15em;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;vertical-align:-.2em}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.75rem 1.35rem;border-radius:999px;border:1.5px solid transparent;background:none;font-weight:600;font-size:.98rem;text-decoration:none;line-height:1.2;transition:background .18s,border-color .18s,color .18s,transform .18s}
+.btn:active{transform:translateY(1px)}
+.btn[disabled]{opacity:.55;cursor:not-allowed}
+.btn-primary{background:var(--pine);color:#fff}
+.btn-primary:hover:not([disabled]){background:var(--pine-2)}
+.btn-brass{background:var(--brass);color:var(--ink)}
+.btn-brass:hover:not([disabled]){background:#eeb442}
+.btn-line{border-color:var(--line);background:#fff;color:var(--ink)}
+.btn-line:hover:not([disabled]){border-color:var(--pine)}
+.btn-light{border-color:rgba(255,255,255,.4);color:#fff}
+.btn-light:hover{background:rgba(255,255,255,.1);border-color:#fff}
+.btn-danger{background:var(--danger);color:#fff}
+.btn-danger:hover:not([disabled]){background:#9c3324}
+.btn-sm{padding:.5rem .95rem;font-size:.88rem}
+.btn-block{width:100%}
+
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.field>label,.field>.lbl{font-size:.82rem;font-weight:600;color:var(--slate)}
+.field input,.field select,.field textarea{width:100%;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:.68rem .85rem;font-size:.98rem;transition:border-color .15s,box-shadow .15s}
+.field textarea{resize:vertical;min-height:110px;line-height:1.5}
+.field input:hover,.field select:hover,.field textarea:hover{border-color:var(--sage)}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--pine);box-shadow:0 0 0 4px rgba(23,84,81,.14)}
+.field select{appearance:none;-webkit-appearance:none;padding-right:2.2rem;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%234A5E5D' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .8rem center}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.form-msg{font-size:.9rem;min-height:1.2em}
+.form-msg.err{color:var(--danger)}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:var(--pine-deep);color:#fff;padding:.8rem 1.2rem;border-radius:999px;font-weight:600;font-size:.93rem;opacity:0;pointer-events:none;transition:opacity .22s,transform .22s;z-index:200;max-width:calc(100vw - 32px);text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.toast.bad{background:var(--danger)}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+}
