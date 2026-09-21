@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ally Rentals LLC | Homes for rent</title>
+<meta name="description" content="Browse houses, townhomes and apartments for rent from Ally Rentals LLC. Filter by rent, bedrooms and pets, then message us from any listing.">
+<meta name="theme-color" content="#0F3B3A">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M3 15L16 4l13 11v13H3z' fill='%230F3B3A'/%3E%3Crect x='13' y='17' width='6' height='11' rx='1' fill='%23E3A72F'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/base.css">
+<style>
+.wrap{width:min(1200px,100% - 48px);margin-inline:auto}
+section[id]{scroll-margin-top:68px}
+
+/* header */
+.site-head{position:sticky;top:0;z-index:40;background:var(--pine);color:#fff}
+.site-head .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;font-family:var(--font-display);font-weight:700;font-size:1.28rem;letter-spacing:-.02em}
+.brand small{display:block;font-family:var(--font-body);font-weight:500;font-size:.7rem;letter-spacing:.02em;color:var(--sage);margin-top:-2px}
+.nav{display:flex;align-items:center;gap:6px}
+.nav a{text-decoration:none;padding:.5rem .9rem;border-radius:999px;font-weight:500;font-size:.95rem;color:#dcebe7}
+.nav a:hover{background:rgba(255,255,255,.09);color:#fff}
+.nav .btn{margin-left:6px;color:var(--ink)}
+.nav .btn:hover{background:#eeb442;color:var(--ink)}
+
+/* hero */
+.hero{background:var(--pine);color:#fff;padding-top:clamp(40px,7vw,84px);position:relative;overflow:hidden}
+.hero h1{font-size:clamp(2.7rem,7vw,5.6rem);font-weight:700;line-height:.98;letter-spacing:-.035em;max-width:11.5ch}
+.hero p.lead{margin-top:22px;max-width:48ch;font-size:clamp(1.02rem,1.6vw,1.2rem);color:#cfe1dc}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.street{display:block;width:100%;height:clamp(150px,20vw,244px);margin-top:clamp(28px,5vw,56px)}
+.street .w{fill:#0A2928}
+.street .w.lt{fill:#0F3B3A}
+.street .w.on{animation:lit .7s ease forwards;animation-delay:var(--d,0s)}
+@keyframes lit{to{fill:#E3A72F}}
+
+/* finder */
+.finder{position:relative;z-index:5;margin-top:-34px}
+.finder-box{background:#fff;border-radius:26px;padding:18px;box-shadow:var(--shadow);display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr auto;gap:12px;align-items:end;border:1px solid var(--line)}
+.finder-box .btn{height:46px}
+.search-in{position:relative}
+.search-in .i{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--slate);pointer-events:none}
+.search-in input{padding-left:2.4rem}
+
+/* results */
+.results{padding:64px 0 28px}
+.res-head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:16px;margin-bottom:26px}
+.res-head h2{font-size:clamp(1.9rem,3.4vw,2.6rem);font-weight:700}
+.res-head p{color:var(--slate);margin-top:6px}
+.res-tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:.5rem .95rem;font-weight:600;font-size:.9rem}
+.chip:hover{border-color:var(--pine)}
+.chip[aria-pressed=true]{background:var(--pine);border-color:var(--pine);color:#fff}
+.sort{width:auto}
+.sort select{padding-top:.5rem;padding-bottom:.5rem;border-radius:999px;font-weight:600;font-size:.9rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:26px}
+
+.card{position:relative;background:#fff;border-radius:24px;overflow:hidden;border:1px solid var(--line);display:flex;flex-direction:column}
+.card:focus-within{box-shadow:0 0 0 3px var(--brass)}
+.media{position:relative;aspect-ratio:4/3;background:var(--sage-soft);overflow:hidden}
+.media>img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.card:hover .media>img{transform:scale(1.04)}
+.ph{width:100%;height:100%;display:grid;place-items:end center;background:linear-gradient(180deg,#dcebe6,#c3d9d2)}
+.ph svg{width:70%;height:auto;max-height:78%}
+.badge{position:absolute;top:14px;left:14px;padding:.28rem .75rem;border-radius:999px;font-size:.78rem;font-weight:700;background:#fff;color:var(--ink);z-index:1}
+.badge.feat{background:var(--brass)}
+.heart{position:absolute;top:10px;right:10px;width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.94);display:grid;place-items:center;z-index:3;color:var(--pine);transition:transform .15s}
+.heart:hover{transform:scale(1.08)}
+.heart[aria-pressed=true]{color:var(--danger)}
+.heart[aria-pressed=true] .i{fill:currentColor}
+.tag{position:absolute;left:0;bottom:18px;background:var(--pine);color:#fff;padding:.5rem 1.1rem .5rem 2rem;border-radius:0 999px 999px 0;font-family:var(--font-display);font-weight:700;font-size:1.15rem;letter-spacing:-.01em;z-index:1}
+.tag::before{content:"";position:absolute;left:11px;top:50%;width:9px;height:9px;margin-top:-4.5px;border-radius:50%;border:2px solid var(--brass)}
+.tag small{font-family:var(--font-body);font-weight:500;font-size:.72em;color:var(--sage);margin-left:2px}
+.count{position:absolute;right:12px;bottom:14px;background:rgba(10,41,40,.78);color:#fff;border-radius:999px;padding:.22rem .65rem;font-size:.8rem;font-weight:600;display:inline-flex;gap:5px;align-items:center;z-index:1}
+.card-body{padding:18px 20px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
+.card h3{font-size:1.25rem;font-weight:600;line-height:1.2}
+.card-open{all:unset;cursor:pointer}
+.card-open::after{content:"";position:absolute;inset:0;z-index:2}
+.card-open:focus-visible{outline:none}
+.addr{display:flex;align-items:center;gap:6px;color:var(--slate);font-size:.92rem}
+.facts{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 0 0;padding:12px 0 0;border-top:1px dashed var(--line);list-style:none;font-weight:600;font-size:.93rem}
+.facts li{display:flex;align-items:center;gap:6px}
+.facts .i{color:var(--pine-2)}
+.card-foot{display:flex;justify-content:space-between;gap:10px;margin-top:auto;padding-top:12px;font-size:.85rem;color:var(--slate)}
+.card-foot span{display:flex;align-items:center;gap:6px}
+
+.sk{border-radius:24px;background:#fff;border:1px solid var(--line);overflow:hidden}
+.sk i{display:block;aspect-ratio:4/3;background:linear-gradient(90deg,#e6efec 25%,#f3f8f6 50%,#e6efec 75%);background-size:200% 100%;animation:sh 1.4s infinite linear}
+.sk b{display:block;height:14px;margin:18px 20px 0;border-radius:8px;background:#e6efec;width:60%}
+.sk b+b{width:40%;margin-bottom:22px}
+@keyframes sh{to{background-position:-200% 0}}
+
+.empty{grid-column:1/-1;background:#fff;border:1.5px dashed var(--sage);border-radius:28px;padding:44px 24px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px}
+.empty svg.art{width:min(260px,70%);height:auto;margin-bottom:6px}
+.empty h3{font-size:1.6rem}
+.empty p{color:var(--slate);max-width:44ch}
+.empty .btn{margin-top:10px}
+
+/* how it works */
+.how{background:#fff;padding:76px 0;border-block:1px solid var(--line)}
+.how h2{font-size:clamp(1.8rem,3.2vw,2.5rem);max-width:20ch}
+.steps{list-style:none;margin:44px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:28px;counter-reset:s}
+.steps li{position:relative;padding-top:64px}
+.steps li::before{counter-increment:s;content:counter(s);position:absolute;top:0;left:0;width:46px;height:46px;border-radius:50%;background:var(--pine);color:var(--brass);display:grid;place-items:center;font-family:var(--font-display);font-weight:700;font-size:1.2rem;z-index:1}
+.steps li::after{content:"";position:absolute;top:22px;left:58px;right:-16px;border-top:2px dashed var(--sage)}
+.steps li:last-child::after{display:none}
+.steps h3{font-size:1.2rem;margin-bottom:8px}
+.steps p{color:var(--slate);font-size:.97rem;max-width:30ch}
+
+/* contact */
+.contact{background:var(--pine);color:#fff;padding:80px 0}
+.contact .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.contact h2{font-size:clamp(1.9rem,3.6vw,2.8rem)}
+.contact p.lead{margin-top:16px;color:#cfe1dc;max-width:42ch}
+.clist{list-style:none;margin:28px 0 0;padding:0;display:grid;gap:14px}
+.clist li{display:flex;gap:12px;align-items:flex-start;color:#e8f2ef}
+.clist .i{margin-top:.2em;color:var(--brass)}
+.clist a{text-decoration:none;border-bottom:1px solid rgba(255,255,255,.3)}
+.clist a:hover{border-color:var(--brass)}
+.form-card{background:#fff;color:var(--ink);border-radius:28px;padding:28px;display:grid;gap:16px}
+.form-card h3{font-size:1.4rem}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.sent{display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:8px 0}
+.sent .i{width:2.2em;height:2.2em;padding:.45em;border-radius:50%;background:var(--ok-soft);color:var(--ok)}
+.sent p{color:var(--slate)}
+
+.foot{background:var(--pine-deep);color:#a9c4bd;padding:28px 0;font-size:.9rem}
+.foot .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 24px}
+
+/* detail dialog */
+dialog.detail{border:0;padding:0;width:min(1080px,calc(100% - 32px));max-height:calc(100% - 32px);margin:auto;border-radius:30px;background:var(--mist);color:var(--ink);overflow:auto;overscroll-behavior:contain}
+dialog.detail[open]{animation:rise .3s ease}
+dialog.detail::backdrop{background:rgba(10,41,40,.7);backdrop-filter:blur(3px)}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}}
+.d-bar{position:sticky;top:0;height:0;z-index:8}
+.d-close{position:absolute;right:16px;top:16px;width:44px;height:44px;border-radius:50%;border:0;background:#fff;box-shadow:0 6px 18px -6px rgba(0,0,0,.4);display:grid;place-items:center}
+.d-close:hover{background:var(--brass)}
+.g-main{position:relative;aspect-ratio:16/9;max-height:60vh;width:100%;background:var(--sage-soft);overflow:hidden}
+.g-main img{width:100%;height:100%;object-fit:cover}
+.g-main.none{aspect-ratio:3/1;max-height:260px}
+.g-main .ph svg{width:auto;height:88%;max-height:none}
+.g-nav{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;border:0;background:rgba(255,255,255,.94);display:grid;place-items:center}
+.g-nav:hover{background:var(--brass)}
+.g-nav.prev{left:16px}.g-nav.next{right:16px}
+.g-count{position:absolute;right:16px;bottom:16px;background:rgba(10,41,40,.8);color:#fff;border-radius:999px;padding:.25rem .8rem;font-size:.85rem;font-weight:600}
+.g-thumbs{display:flex;gap:8px;overflow-x:auto;padding:12px 28px 4px}
+.g-thumbs button{flex:none;width:92px;height:64px;border-radius:12px;overflow:hidden;border:2.5px solid transparent;padding:0;background:var(--sage-soft);opacity:.75}
+.g-thumbs button[aria-current=true]{border-color:var(--brass);opacity:1}
+.g-thumbs img{width:100%;height:100%;object-fit:cover}
+.d-grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:36px;padding:26px 32px 36px}
+.d-info h2{font-size:clamp(1.7rem,3vw,2.4rem);font-weight:700;margin-top:10px}
+.d-info .addr{margin-top:8px;font-size:1rem}
+.d-pills{display:flex;gap:8px;flex-wrap:wrap}
+.pill{display:inline-block;padding:.25rem .75rem;border-radius:999px;font-size:.8rem;font-weight:700;background:var(--sage-soft);color:var(--pine)}
+.pill.feat{background:var(--brass-soft);color:var(--brass-deep)}
+.pill.pend{background:#fff;border:1.5px solid var(--brass);color:var(--brass-deep)}
+.d-facts{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:24px 0;padding:0;list-style:none}
+.d-facts li{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px 16px;display:flex;flex-direction:column;gap:2px}
+.d-facts b{font-family:var(--font-display);font-size:1.5rem;line-height:1.1}
+.d-facts span{color:var(--slate);font-size:.85rem;display:flex;align-items:center;gap:6px}
+.d-info h3{font-size:1.15rem;margin:26px 0 10px}
+.desc{white-space:pre-line;max-width:65ch;color:#24393a}
+.amen{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
+.amen li{display:flex;gap:6px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:999px;padding:.35rem .85rem;font-size:.9rem;font-weight:500}
+.amen .i{color:var(--ok)}
+.dl{display:grid;grid-template-columns:repeat(2,1fr);gap:0 28px;margin:0}
+.dl div{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}
+.dl dt{color:var(--slate)}
+.dl dd{margin:0;font-weight:600;text-align:right}
+.d-side{position:sticky;top:12px;align-self:start;background:#fff;border:1px solid var(--line);border-radius:26px;padding:22px;display:grid;gap:14px;box-shadow:var(--shadow)}
+.d-price{font-family:var(--font-display);font-weight:700;font-size:2.3rem;letter-spacing:-.03em;line-height:1}
+.d-price span{font-family:var(--font-body);font-weight:500;font-size:1rem;color:var(--slate);letter-spacing:0;margin-left:4px}
+.d-avail{display:flex;align-items:center;gap:8px;color:var(--slate);font-size:.93rem;margin-top:-6px}
+.d-side form{display:grid;gap:12px}
+.d-side .field textarea{min-height:96px}
+.d-actions{display:flex;gap:8px;flex-wrap:wrap}
+.d-actions .btn{flex:1}
+
+@media (max-width:1020px){
+  .finder-box{grid-template-columns:1fr 1fr 1fr}
+  .finder-box .search-in{grid-column:1/-1}
+  .finder-box .btn{grid-column:1/-1}
+  .steps{grid-template-columns:repeat(2,1fr);row-gap:40px}
+  .steps li:nth-child(2)::after{display:none}
+  .contact .wrap{grid-template-columns:1fr;gap:36px}
+  .d-grid{grid-template-columns:1fr}
+  .d-side{position:static}
+}
+@media (max-width:720px){
+  .wrap{width:min(1200px,100% - 32px)}
+  .nav a:not(.btn){display:none}
+  .finder-box{grid-template-columns:1fr 1fr;padding:14px}
+  .grid{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr}
+  .steps li::after{display:none}
+  .row2{grid-template-columns:1fr}
+  dialog.detail{width:100%;height:100%;max-height:100%;border-radius:0}
+  .g-main{border-radius:0;aspect-ratio:4/3}
+  .d-grid{padding:20px 18px 30px}
+  .d-facts{grid-template-columns:repeat(2,1fr)}
+  .dl{grid-template-columns:1fr}
+  .g-thumbs{padding-inline:18px}
+}
+</style>
+</head>
+<body>
+<script src="/js/icons.js"></script>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Ally Rentals LLC, home">
+      <svg viewBox="0 0 32 32" width="34" height="34" aria-hidden="true"><path d="M3 15L16 4l13 11v13H3z" fill="#BCD3CC"/><rect x="13" y="17" width="6" height="11" rx="1" fill="#E3A72F"/></svg>
+      <span>Ally Rentals<small>Ally Rentals LLC</small></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#homes">Homes</a>
+      <a href="#how">How it works</a>
+      <a href="#contact" class="btn btn-brass btn-sm">Send a message</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <h1>Find the door that's yours.</h1>
+      <p class="lead">Houses, townhomes and apartments for rent from Ally Rentals LLC. Browse what's open, save the ones you like, and message us straight from any listing.</p>
+      <div class="hero-cta">
+        <a class="btn btn-brass" href="#homes">Browse homes</a>
+        <a class="btn btn-light" href="#how">How renting works</a>
+      </div>
+    </div>
+    <svg class="street" viewBox="0 0 1200 244" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">
+      <!-- house 1 -->
+      <rect x="30" y="115" width="170" height="85" fill="#1C5452"/>
+      <polygon points="18,118 115,58 212,118" fill="#0A2928"/>
+      <rect x="150" y="68" width="16" height="30" fill="#0A2928"/>
+      <rect class="w on" style="--d:.9s" x="52" y="135" width="30" height="28" rx="2"/>
+      <rect class="w" x="148" y="135" width="30" height="28" rx="2"/>
+      <rect x="99" y="152" width="32" height="48" rx="3" fill="#E3A72F"/>
+      <!-- house 2 -->
+      <rect x="250" y="90" width="140" height="110" fill="#2B6B66"/>
+      <rect x="244" y="83" width="152" height="10" rx="2" fill="#0A2928"/>
+      <rect class="w on" style="--d:1.5s" x="268" y="105" width="26" height="24" rx="2"/>
+      <rect class="w" x="346" y="105" width="26" height="24" rx="2"/>
+      <rect class="w" x="268" y="145" width="26" height="24" rx="2"/>
+      <rect class="w on" style="--d:2.3s" x="346" y="145" width="26" height="24" rx="2"/>
+      <rect x="307" y="158" width="26" height="42" rx="3" fill="#F1F5F4"/>
+      <!-- house 3 -->
+      <rect x="440" y="120" width="160" height="80" fill="#BCD3CC"/>
+      <polygon points="428,123 520,66 612,123" fill="#175451"/>
+      <rect class="w lt on" style="--d:1.2s" x="462" y="138" width="28" height="26" rx="2"/>
+      <rect class="w lt on" style="--d:2s" x="550" y="138" width="28" height="26" rx="2"/>
+      <rect x="503" y="156" width="28" height="44" rx="3" fill="#0F3B3A"/>
+      <!-- sign -->
+      <rect x="633" y="160" width="3" height="40" fill="#F1F5F4"/>
+      <rect x="620" y="150" width="30" height="20" rx="3" fill="#E3A72F"/>
+      <!-- house 4 -->
+      <rect x="670" y="70" width="110" height="130" fill="#175451"/>
+      <polygon points="662,74 725,34 788,74" fill="#0A2928"/>
+      <rect class="w" x="688" y="88" width="24" height="22" rx="2"/>
+      <rect class="w on" style="--d:1.8s" x="738" y="88" width="24" height="22" rx="2"/>
+      <rect class="w on" style="--d:2.7s" x="688" y="128" width="24" height="22" rx="2"/>
+      <rect class="w" x="738" y="128" width="24" height="22" rx="2"/>
+      <rect x="708" y="160" width="24" height="40" rx="3" fill="#E3A72F"/>
+      <!-- house 5 -->
+      <rect x="830" y="125" width="190" height="75" fill="#2B6B66"/>
+      <polygon points="818,128 925,72 1032,128" fill="#0A2928"/>
+      <rect class="w on" style="--d:1.1s" x="852" y="142" width="30" height="26" rx="2"/>
+      <rect class="w on" style="--d:2.5s" x="968" y="142" width="30" height="26" rx="2"/>
+      <rect x="910" y="158" width="30" height="42" rx="3" fill="#F1F5F4"/>
+      <!-- house 6 -->
+      <rect x="1070" y="140" width="110" height="60" fill="#BCD3CC"/>
+      <polygon points="1060,143 1125,100 1190,143" fill="#175451"/>
+      <rect class="w lt on" style="--d:2.9s" x="1088" y="155" width="22" height="20" rx="2"/>
+      <rect x="1138" y="162" width="22" height="38" rx="3" fill="#0F3B3A"/>
+      <rect x="0" y="198" width="1200" height="46" fill="#0A2928"/>
+    </svg>
+  </section>
+
+  <section class="finder" aria-label="Search homes">
+    <div class="wrap">
+      <form class="finder-box" id="finder" autocomplete="off" onsubmit="return false">
+        <div class="field">
+          <label for="fQ">Where</label>
+          <div class="search-in">
+            <svg class="i"><use href="#i-search"/></svg>
+            <input id="fQ" type="search" placeholder="City, street or zip code">
+          </div>
+        </div>
+        <div class="field">
+          <label for="fType">Home type</label>
+          <select id="fType"><option value="">Any type</option><option>House</option><option>Townhome</option><option>Apartment</option><option>Condo</option><option>Duplex</option><option>Room</option></select>
+        </div>
+        <div class="field">
+          <label for="fBeds">Bedrooms</label>
+          <select id="fBeds"><option value="">Any</option><option value="1">1 or more</option><option value="2">2 or more</option><option value="3">3 or more</option><option value="4">4 or more</option></select>
+        </div>
+        <div class="field">
+          <label for="fMax">Rent</label>
+          <select id="fMax"><option value="">Any price</option><option value="1000">Up to $1,000</option><option value="1500">Up to $1,500</option><option value="2000">Up to $2,000</option><option value="2500">Up to $2,500</option><option value="3000">Up to $3,000</option><option value="4000">Up to $4,000</option></select>
+        </div>
+        <a class="btn btn-primary" href="#homes" id="fGo">Show homes</a>
+      </form>
+    </div>
+  </section>
+
+  <section class="results" id="homes" aria-labelledby="homesTitle">
+    <div class="wrap">
+      <div class="res-head">
+        <div>
+          <h2 id="homesTitle">Homes for rent</h2>
+          <p id="count" aria-live="polite">Loading homes…</p>
+        </div>
+        <div class="res-tools">
+          <button class="chip" id="petsBtn" type="button" aria-pressed="false"><svg class="i"><use href="#i-paw"/></svg>Pets allowed</button>
+          <button class="chip" id="savedBtn" type="button" aria-pressed="false" hidden><svg class="i"><use href="#i-heart"/></svg><span>Saved</span></button>
+          <div class="field sort">
+            <label class="sr" for="fSort">Sort homes</label>
+            <select id="fSort"><option value="featured">Featured first</option><option value="new">Newest</option><option value="low">Rent, low to high</option><option value="high">Rent, high to low</option></select>
+          </div>
+        </div>
+      </div>
+      <div class="grid" id="grid">
+        <div class="sk"><i></i><b></b><b></b></div><div class="sk"><i></i><b></b><b></b></div><div class="sk"><i></i><b></b><b></b></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="how" id="how">
+    <div class="wrap">
+      <h2>Renting with Ally, from first look to first night</h2>
+      <ol class="steps">
+        <li><h3>Find a home</h3><p>Browse what's open and narrow it down by rent, bedrooms and pets. Tap the heart to save your favorites.</p></li>
+        <li><h3>Ask a question</h3><p>Send a message from any listing. Tell us what you'd like to know and when you'd like to see it.</p></li>
+        <li><h3>Tour and apply</h3><p>We'll set up a time to walk through the home and go over the next steps with you.</p></li>
+        <li><h3>Get your keys</h3><p>Once the lease is signed, the keys are yours and the home is ready for you to move in.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <div>
+        <h2>Not sure which home fits?</h2>
+        <p class="lead">Tell us what you're looking for and we'll point you to the right place. We reply to every message.</p>
+        <ul class="clist" id="contactList" hidden></ul>
+      </div>
+      <form class="form-card" id="contactForm" novalidate>
+        <h3>Send us a message</h3>
+        <div class="row2">
+          <div class="field"><label for="cName">Your name</label><input id="cName" name="name" autocomplete="name" required></div>
+          <div class="field"><label for="cPhone">Phone (optional)</label><input id="cPhone" name="phone" type="tel" autocomplete="tel"></div>
+        </div>
+        <div class="field"><label for="cEmail">Email</label><input id="cEmail" name="email" type="email" autocomplete="email"></div>
+        <div class="field"><label for="cMsg">How can we help?</label><textarea id="cMsg" name="message" required placeholder="Tell us the area, number of bedrooms and move-in date you have in mind."></textarea></div>
+        <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <p class="form-msg" role="alert"></p>
+        <button class="btn btn-primary btn-block" type="submit">Send message</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <span>&copy; <span id="yr"></span> Ally Rentals LLC. All rights reserved.</span>
+    <span>Equal Housing Opportunity</span>
+  </div>
+</footer>
+
+<dialog class="detail" id="detail" aria-label="Home details"></dialog>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function () {
+  'use strict';
+  var $ = function (s, el) { return (el || document).querySelector(s); };
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+  var usd = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+  var money = function (n) { return usd.format(n || 0); };
+  var fmtDate = function (d) { return new Date(d + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); };
+  var icon = function (n) { return '<svg class="i" aria-hidden="true"><use href="#i-' + n + '"/></svg>'; };
+  var bathsTxt = function (n) { return (n % 1 ? n : Math.round(n)) + (n === 1 ? ' bath' : ' baths'); };
+
+  var listings = [], settings = {}, current = null, gi = 0;
+  var saved = new Set();
+  try { saved = new Set(JSON.parse(localStorage.getItem('ally-saved') || '[]')); } catch (e) {}
+  var st = { q: '', type: '', beds: '', max: '', pets: false, sort: 'featured', savedOnly: false };
+
+  $('#yr').textContent = new Date().getFullYear();
+
+  function toast(msg, bad) {
+    var t = $('#toast'); t.textContent = msg; t.className = 'toast show' + (bad ? ' bad' : '');
+    clearTimeout(toast.t); toast.t = setTimeout(function () { t.className = 'toast'; }, 2600);
+  }
+  function persistSaved() { try { localStorage.setItem('ally-saved', JSON.stringify([].concat(Array.from(saved)))); } catch (e) {} }
+
+  function houseArt() {
+    return '<svg viewBox="0 0 200 130" aria-hidden="true"><rect x="30" y="58" width="140" height="66" fill="#fff" opacity=".85"/><polygon points="20,62 100,10 180,62" fill="#175451"/><rect x="44" y="76" width="30" height="26" rx="2" fill="#BCD3CC"/><rect x="126" y="76" width="30" height="26" rx="2" fill="#BCD3CC"/><rect x="88" y="86" width="24" height="38" rx="3" fill="#E3A72F"/></svg>';
+  }
+  function availText(l) {
+    if (!l.availableFrom || l.availableFrom <= new Date().toISOString().slice(0, 10)) return 'Available now';
+    return 'Available ' + fmtDate(l.availableFrom);
+  }
+  function place(l) { return [l.address, [l.city, l.state].filter(Boolean).join(', ')].filter(Boolean).join(', '); }
+
+  /* ----- filtering ----- */
+  function matches(l) {
+    if (st.q) {
+      var hay = [l.title, l.address, l.city, l.state, l.zip, l.type].join(' ').toLowerCase();
+      if (!st.q.toLowerCase().split(/\s+/).every(function (w) { return hay.indexOf(w) > -1; })) return false;
+    }
+    if (st.type && l.type !== st.type) return false;
+    if (st.beds && l.beds < +st.beds) return false;
+    if (st.max && l.price > +st.max) return false;
+    if (st.pets && l.pets === 'No pets') return false;
+    if (st.savedOnly && !saved.has(l.id)) return false;
+    return true;
+  }
+  function sorted(arr) {
+    var a = arr.slice();
+    var newest = function (x, y) { return String(y.createdAt).localeCompare(String(x.createdAt)); };
+    if (st.sort === 'low') a.sort(function (x, y) { return x.price - y.price; });
+    else if (st.sort === 'high') a.sort(function (x, y) { return y.price - x.price; });
+    else if (st.sort === 'new') a.sort(newest);
+    else a.sort(function (x, y) { return (y.featured - x.featured) || newest(x, y); });
+    return a;
+  }
+
+  /* ----- render grid ----- */
+  function cardHTML(l) {
+    var img = l.images && l.images[0];
+    var badge = l.featured ? '<span class="badge feat">Featured</span>' : (l.status === 'pending' ? '<span class="badge">Application pending</span>' : '');
+    var pressed = saved.has(l.id);
+    return '<article class="card" data-id="' + esc(l.id) + '">' +
+      '<div class="media">' +
+        (img ? '<img src="' + esc(img) + '" alt="" loading="lazy" decoding="async">' : '<div class="ph">' + houseArt() + '</div>') +
+        badge +
+        '<button class="heart" type="button" data-save="' + esc(l.id) + '" aria-pressed="' + pressed + '" aria-label="' + (pressed ? 'Remove from saved' : 'Save this home') + '">' + icon('heart') + '</button>' +
+        '<div class="tag">' + money(l.price) + '<small>/mo</small></div>' +
+        (l.images && l.images.length > 1 ? '<span class="count">' + icon('image') + l.images.length + '</span>' : '') +
+      '</div>' +
+      '<div class="card-body">' +
+        '<h3><button class="card-open" type="button" data-open="' + esc(l.id) + '">' + esc(l.title) + '</button></h3>' +
+        '<div class="addr">' + icon('pin') + '<span>' + esc(place(l)) + '</span></div>' +
+        '<ul class="facts">' +
+          '<li>' + icon('bed') + (l.beds ? l.beds + (l.beds === 1 ? ' bed' : ' beds') : 'Studio') + '</li>' +
+          '<li>' + icon('bath') + bathsTxt(l.baths) + '</li>' +
+          (l.sqft ? '<li>' + icon('area') + Number(l.sqft).toLocaleString('en-US') + ' sq ft</li>' : '') +
+        '</ul>' +
+        '<div class="card-foot"><span>' + esc(l.type) + '</span><span>' + icon('cal') + esc(availText(l)) + '</span></div>' +
+      '</div></article>';
+  }
+  function emptyHTML(noneAtAll) {
+    if (noneAtAll) {
+      return '<div class="empty"><svg class="art" viewBox="0 0 260 150" aria-hidden="true"><rect x="0" y="136" width="260" height="6" rx="3" fill="#BCD3CC"/><rect x="60" y="66" width="140" height="70" fill="#E3EEEA"/><polygon points="48,70 130,14 212,70" fill="#175451"/><rect x="76" y="86" width="30" height="26" rx="2" fill="#BCD3CC"/><rect x="154" y="86" width="30" height="26" rx="2" fill="#BCD3CC"/><rect x="116" y="96" width="28" height="40" rx="3" fill="#E3A72F"/><rect x="222" y="98" width="3" height="38" fill="#4A5E5D"/><rect x="210" y="90" width="28" height="18" rx="3" fill="#E3A72F"/></svg><h3>New homes are on the way</h3><p>There are no listings right now. Send us a message with what you\'re looking for and we\'ll reach out when something fits.</p><a class="btn btn-primary" href="#contact">Tell us what you need</a></div>';
+    }
+    return '<div class="empty"><h3>No homes match those filters</h3><p>Try a wider search area, a higher rent, or fewer filters.</p><button class="btn btn-primary" type="button" id="clearBtn">Clear filters</button></div>';
+  }
+  function render() {
+    var list = sorted(listings.filter(matches));
+    var grid = $('#grid');
+    grid.innerHTML = list.length ? list.map(cardHTML).join('') : emptyHTML(!listings.length);
+    var n = list.length;
+    $('#count').textContent = !listings.length ? 'Nothing listed right now.' : (n + (n === 1 ? ' home' : ' homes') + ' to show');
+    var sb = $('#savedBtn');
+    sb.hidden = !saved.size && !st.savedOnly;
+    $('span', sb).textContent = 'Saved (' + saved.size + ')';
+    sb.setAttribute('aria-pressed', st.savedOnly);
+    $('#petsBtn').setAttribute('aria-pressed', st.pets);
+  }
+  function clearFilters() {
+    st = { q: '', type: '', beds: '', max: '', pets: false, sort: st.sort, savedOnly: false };
+    $('#fQ').value = ''; $('#fType').value = ''; $('#fBeds').value = ''; $('#fMax').value = '';
+    render();
+  }
+
+  /* ----- events: filters ----- */
+  $('#fQ').addEventListener('input', function (e) { st.q = e.target.value.trim(); render(); });
+  $('#fType').addEventListener('change', function (e) { st.type = e.target.value; render(); });
+  $('#fBeds').addEventListener('change', function (e) { st.beds = e.target.value; render(); });
+  $('#fMax').addEventListener('change', function (e) { st.max = e.target.value; render(); });
+  $('#fSort').addEventListener('change', function (e) { st.sort = e.target.value; render(); });
+  $('#petsBtn').addEventListener('click', function () { st.pets = !st.pets; render(); });
+  $('#savedBtn').addEventListener('click', function () { st.savedOnly = !st.savedOnly; render(); });
+  $('#fQ').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); location.hash = '#homes'; } });
+
+  $('#grid').addEventListener('click', function (e) {
+    var save = e.target.closest('[data-save]');
+    if (save) { toggleSave(save.getAttribute('data-save')); return; }
+    var open = e.target.closest('[data-open]');
+    if (open) { openDetail(open.getAttribute('data-open')); return; }
+    if (e.target.id === 'clearBtn') clearFilters();
+  });
+  function toggleSave(id) {
+    if (saved.has(id)) { saved.delete(id); toast('Removed from saved'); } else { saved.add(id); toast('Saved. Find it under Saved.'); }
+    persistSaved();
+    if (st.savedOnly && !saved.size) st.savedOnly = false;
+    render();
+    if (current && $('#detail').open) { var b = $('#dSave'); if (b) syncSaveBtn(b); }
+  }
+  function syncSaveBtn(b) {
+    var on = saved.has(current.id);
+    b.setAttribute('aria-pressed', on);
+    b.innerHTML = icon('heart') + (on ? 'Saved' : 'Save');
+    if (on) $('.i', b).style.fill = 'currentColor'; else $('.i', b).style.fill = '';
+  }
+
+  /* ----- forms ----- */
+  function bindForm(form, onDone) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var msg = $('.form-msg', form), btn = $('button[type=submit]', form), label = btn.textContent;
+      msg.textContent = ''; msg.className = 'form-msg';
+      var data = {};
+      new FormData(form).forEach(function (v, k) { data[k] = v; });
+      btn.disabled = true; btn.textContent = 'Sending…';
+      fetch('/api/inquiries', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+        .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok) throw new Error(j.error || 'Could not send your message. Try again.'); }); })
+        .then(function () { onDone(form); })
+        .catch(function (err) { msg.textContent = err.message; msg.className = 'form-msg err'; btn.disabled = false; btn.textContent = label; });
+    });
+  }
+  function sentHTML() {
+    return '<div class="sent">' + icon('check') + '<h3>Message sent</h3><p>Thanks for reaching out. We\'ll get back to you soon.</p></div>';
+  }
+  bindForm($('#contactForm'), function (f) { f.innerHTML = sentHTML(); });
+
+  function renderContact() {
+    var s = settings, items = [];
+    if (s.phone) items.push('<li>' + icon('phone') + '<a href="tel:' + esc(s.phone.replace(/[^\d+]/g, '')) + '">' + esc(s.phone) + '</a></li>');
+    if (s.email) items.push('<li>' + icon('mail') + '<a href="mailto:' + esc(s.email) + '">' + esc(s.email) + '</a></li>');
+    if (s.address) items.push('<li>' + icon('pin') + '<span>' + esc(s.address) + '</span></li>');
+    if (s.hours) items.push('<li>' + icon('clock') + '<span>' + esc(s.hours) + '</span></li>');
+    var ul = $('#contactList'); ul.innerHTML = items.join(''); ul.hidden = !items.length;
+  }
+
+  /* ----- detail dialog ----- */
+  var dlg = $('#detail');
+  function detailHTML(l) {
+    var imgs = l.images || [];
+    var gallery =
+      '<div class="g-main' + (imgs.length ? '' : ' none') + '">' +
+        (imgs.length ? '<img id="gImg" src="' + esc(imgs[0]) + '" alt="' + esc(l.title) + ', photo 1">' : '<div class="ph" style="height:100%">' + houseArt() + '</div>') +
+        (imgs.length > 1 ? '<button class="g-nav prev" type="button" data-g="-1" aria-label="Previous photo">' + icon('left') + '</button><button class="g-nav next" type="button" data-g="1" aria-label="Next photo">' + icon('right') + '</button><span class="g-count" id="gCount">1 / ' + imgs.length + '</span>' : '') +
+      '</div>' +
+      (imgs.length > 1 ? '<div class="g-thumbs">' + imgs.map(function (u, i) { return '<button type="button" data-thumb="' + i + '" aria-label="Show photo ' + (i + 1) + '"' + (i === 0 ? ' aria-current="true"' : '') + '><img src="' + esc(u) + '" alt="" loading="lazy"></button>'; }).join('') + '</div>' : '');
+
+    var details = [];
+    if (l.type) details.push(['Home type', l.type]);
+    if (l.deposit) details.push(['Security deposit', money(l.deposit)]);
+    if (l.leaseTerm) details.push(['Lease term', l.leaseTerm]);
+    details.push(['Available', availText(l).replace('Available ', '')]);
+    details.push(['Pets', l.pets]);
+    if (l.parking) details.push(['Parking', l.parking]);
+
+    var pills = '<div class="d-pills">' + (l.featured ? '<span class="pill feat">Featured</span>' : '') + (l.status === 'pending' ? '<span class="pill pend">Application pending</span>' : '<span class="pill">' + esc(l.type) + '</span>') + '</div>';
+    var phone = settings.phone ? '<a class="btn btn-line btn-sm" href="tel:' + esc(settings.phone.replace(/[^\d+]/g, '')) + '">' + icon('phone') + 'Call</a>' : '';
+
+    return '<div class="d-bar"><button class="d-close" type="button" data-close aria-label="Close">' + icon('x') + '</button></div>' +
+      gallery +
+      '<div class="d-grid"><div class="d-info">' + pills +
+        '<h2>' + esc(l.title) + '</h2>' +
+        '<div class="addr">' + icon('pin') + '<span>' + esc(place(l)) + (l.zip ? ' ' + esc(l.zip) : '') + '</span></div>' +
+        '<ul class="d-facts">' +
+          '<li><b>' + (l.beds || 'Studio') + '</b><span>' + icon('bed') + (l.beds ? (l.beds === 1 ? 'Bedroom' : 'Bedrooms') : 'Layout') + '</span></li>' +
+          '<li><b>' + (l.baths % 1 ? l.baths : Math.round(l.baths)) + '</b><span>' + icon('bath') + (l.baths === 1 ? 'Bathroom' : 'Bathrooms') + '</span></li>' +
+          (l.sqft ? '<li><b>' + Number(l.sqft).toLocaleString('en-US') + '</b><span>' + icon('area') + 'Square feet</span></li>' : '') +
+          '<li><b>' + esc(l.pets === 'No pets' ? 'No' : 'Yes') + '</b><span>' + icon('paw') + (l.pets === 'No pets' ? 'Pets allowed' : esc(l.pets)) + '</span></li>' +
+        '</ul>' +
+        (l.description ? '<h3>About this home</h3><p class="desc">' + esc(l.description) + '</p>' : '') +
+        (l.amenities && l.amenities.length ? '<h3>What\'s included</h3><ul class="amen">' + l.amenities.map(function (a) { return '<li>' + icon('check') + esc(a) + '</li>'; }).join('') + '</ul>' : '') +
+        '<h3>The details</h3><dl class="dl">' + details.map(function (d) { return '<div><dt>' + esc(d[0]) + '</dt><dd>' + esc(d[1]) + '</dd></div>'; }).join('') + '</dl>' +
+      '</div>' +
+      '<aside class="d-side">' +
+        '<div class="d-price">' + money(l.price) + '<span>per month</span></div>' +
+        '<div class="d-avail">' + icon('cal') + esc(availText(l)) + '</div>' +
+        '<form id="dForm" novalidate>' +
+          '<input type="hidden" name="listingId" value="' + esc(l.id) + '">' +
+          '<div class="field"><label for="dName">Your name</label><input id="dName" name="name" autocomplete="name" required></div>' +
+          '<div class="field"><label for="dEmail">Email</label><input id="dEmail" name="email" type="email" autocomplete="email"></div>' +
+          '<div class="field"><label for="dPhone">Phone</label><input id="dPhone" name="phone" type="tel" autocomplete="tel"></div>' +
+          '<div class="field"><label for="dMsg">Message</label><textarea id="dMsg" name="message" required>' + esc('Hi, I\'m interested in ' + l.title + '. Is it still available?') + '</textarea></div>' +
+          '<input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">' +
+          '<p class="form-msg" role="alert"></p>' +
+          '<button class="btn btn-primary btn-block" type="submit">Ask about this home</button>' +
+        '</form>' +
+        '<div class="d-actions">' + phone + '<button class="btn btn-line btn-sm" type="button" id="dSave" aria-pressed="false"></button><button class="btn btn-line btn-sm" type="button" id="dCopy">' + icon('link') + 'Copy link</button></div>' +
+      '</aside></div>';
+  }
+  function openDetail(id) {
+    var l = listings.find(function (x) { return x.id === id; });
+    if (!l) return;
+    current = l; gi = 0;
+    dlg.innerHTML = detailHTML(l);
+    syncSaveBtn($('#dSave'));
+    bindForm($('#dForm'), function (f) { f.innerHTML = sentHTML(); });
+    if (!dlg.open) dlg.showModal();
+    dlg.scrollTop = 0;
+    document.body.style.overflow = 'hidden';
+    history.replaceState(null, '', '#home=' + id);
+  }
+  function setPhoto(i) {
+    var imgs = current.images; if (!imgs.length) return;
+    gi = (i + imgs.length) % imgs.length;
+    var img = $('#gImg'); img.src = imgs[gi]; img.alt = current.title + ', photo ' + (gi + 1);
+    $('#gCount').textContent = (gi + 1) + ' / ' + imgs.length;
+    dlg.querySelectorAll('[data-thumb]').forEach(function (b, k) { if (k === gi) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current'); });
+    var active = dlg.querySelector('[data-thumb="' + gi + '"]'); if (active) active.scrollIntoView({ block: 'nearest', inline: 'center' });
+  }
+  dlg.addEventListener('click', function (e) {
+    if (e.target === dlg || e.target.closest('[data-close]')) { dlg.close(); return; }
+    var g = e.target.closest('[data-g]'); if (g) { setPhoto(gi + Number(g.getAttribute('data-g'))); return; }
+    var t = e.target.closest('[data-thumb]'); if (t) { setPhoto(Number(t.getAttribute('data-thumb'))); return; }
+    if (e.target.closest('#dSave')) { toggleSave(current.id); return; }
+    if (e.target.closest('#dCopy')) {
+      var url = location.origin + location.pathname + '#home=' + current.id;
+      (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(function () { toast('Link copied'); }, function () { toast('Copy the link from the address bar', true); });
+    }
+  });
+  dlg.addEventListener('keydown', function (e) {
+    if (!current || !current.images || current.images.length < 2 || e.target.matches('input,textarea,select')) return;
+    if (e.key === 'ArrowLeft') setPhoto(gi - 1);
+    if (e.key === 'ArrowRight') setPhoto(gi + 1);
+  });
+  dlg.addEventListener('close', function () {
+    document.body.style.overflow = '';
+    if (location.hash.indexOf('#home=') === 0) history.replaceState(null, '', location.pathname + location.search);
+  });
+  window.addEventListener('hashchange', function () {
+    var m = /^#home=([a-f0-9]+)$/.exec(location.hash);
+    if (m && listings.length) openDetail(m[1]);
+  });
+
+  /* ----- load ----- */
+  function j(url) { return fetch(url).then(function (r) { if (!r.ok) throw new Error(); return r.json(); }); }
+  Promise.all([j('/api/listings'), j('/api/settings')]).then(function (r) {
+    listings = r[0]; settings = r[1];
+    renderContact(); render();
+    var m = /^#home=([a-f0-9]+)$/.exec(location.hash);
+    if (m) openDetail(m[1]);
+  }).catch(function () {
+    $('#count').textContent = 'Could not load homes.';
+    $('#grid').innerHTML = '<div class="empty"><h3>We couldn\'t load the homes</h3><p>Check your connection and refresh the page.</p><button class="btn btn-primary" type="button" onclick="location.reload()">Refresh</button></div>';
+  });
+})();
+</script>
+</body>
+</html>
