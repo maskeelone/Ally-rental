@@ -1,0 +1,693 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0F3B3A">
+<title>Admin | Ally Rentals LLC</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M3 15L16 4l13 11v13H3z' fill='%230F3B3A'/%3E%3Crect x='13' y='17' width='6' height='11' rx='1' fill='%23E3A72F'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/base.css">
+<style>
+/* login */
+.login{min-height:100vh;display:grid;place-items:center;background:var(--pine);padding:24px}
+.login-card{background:#fff;border-radius:30px;padding:36px 34px;width:min(430px,100%);display:grid;gap:18px;box-shadow:0 40px 80px -30px rgba(0,0,0,.65)}
+.login-card .mk{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:700;font-size:1.2rem}
+.login-card h1{font-size:2rem;margin-top:6px}
+.login-card p.sub{color:var(--slate);margin-top:-8px}
+.pw{position:relative}
+.pw input{padding-right:3rem}
+.pw button{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:38px;height:38px;border:0;background:none;border-radius:10px;color:var(--slate);display:grid;place-items:center}
+.pw button:hover{background:var(--sage-soft)}
+.back{text-align:center;font-size:.9rem;color:var(--slate)}
+
+/* shell */
+.shell{display:grid;grid-template-columns:250px minmax(0,1fr);min-height:100vh}
+.side{background:var(--pine);color:#fff;padding:22px 14px;display:flex;flex-direction:column;gap:6px;position:sticky;top:0;height:100vh}
+.side .mk{display:flex;align-items:center;gap:10px;padding:4px 10px 20px;font-family:var(--font-display);font-weight:700;font-size:1.2rem}
+.side .mk small{display:block;font-family:var(--font-body);font-weight:500;font-size:.72rem;color:var(--sage);margin-top:-2px}
+.nb{display:flex;align-items:center;gap:11px;padding:.72rem .9rem;border-radius:14px;border:0;background:none;color:#cfe1dc;font-weight:600;text-align:left;width:100%;text-decoration:none;font-size:.97rem}
+.nb:hover{background:rgba(255,255,255,.08);color:#fff}
+.nb[aria-current=page]{background:rgba(255,255,255,.14);color:#fff}
+.nb .bd{margin-left:auto;background:var(--brass);color:var(--ink);border-radius:999px;font-size:.75rem;padding:.05rem .55rem;font-weight:700}
+.side .sp{flex:1}
+.main{padding:30px clamp(18px,3vw,40px) 60px;min-width:0}
+.top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:24px}
+.top h1{font-size:clamp(1.7rem,3vw,2.3rem);font-weight:700}
+.top p{color:var(--slate);margin-top:4px}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:20px;padding:16px 18px}
+.stat span{color:var(--slate);font-size:.86rem;font-weight:600}
+.stat b{display:block;font-family:var(--font-display);font-size:2rem;line-height:1.15;margin-top:2px}
+.stat.ok b{color:var(--ok)}
+
+.toolbar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:16px}
+.toolbar .search{position:relative;flex:1;min-width:220px;max-width:380px}
+.toolbar .search .i{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--slate);pointer-events:none}
+.toolbar .search input{width:100%;padding:.62rem .9rem .62rem 2.4rem;border:1.5px solid var(--line);border-radius:999px;background:#fff}
+.toolbar .search input:focus{outline:none;border-color:var(--pine);box-shadow:0 0 0 4px rgba(23,84,81,.14)}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg button{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:.45rem .9rem;font-weight:600;font-size:.88rem}
+.seg button:hover{border-color:var(--pine)}
+.seg button[aria-pressed=true]{background:var(--pine);border-color:var(--pine);color:#fff}
+
+.rows{display:grid;gap:12px}
+.row{display:grid;grid-template-columns:88px minmax(0,1fr) 110px 138px auto;gap:16px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:20px;padding:12px 16px}
+.th-s{width:88px;height:66px;border-radius:12px;overflow:hidden;background:var(--sage-soft);display:grid;place-items:center;color:var(--sage)}
+.th-s img{width:100%;height:100%;object-fit:cover}
+.th-s .i{width:1.6em;height:1.6em}
+.r-title{min-width:0}
+.r-title b{display:block;font-family:var(--font-display);font-size:1.08rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.r-title span{display:block;color:var(--slate);font-size:.88rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.r-price{font-family:var(--font-display);font-weight:700;font-size:1.1rem}
+.r-price small{display:block;font-family:var(--font-body);font-weight:500;font-size:.78rem;color:var(--slate)}
+.stsel{appearance:none;-webkit-appearance:none;border:0;border-radius:999px;font-weight:700;font-size:.85rem;padding:.42rem 1.9rem .42rem .9rem;background-repeat:no-repeat;background-position:right .65rem center;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");width:100%}
+.stsel.available{background-color:var(--ok-soft);color:var(--ok)}
+.stsel.pending{background-color:var(--brass-soft);color:var(--brass-deep)}
+.stsel.rented{background-color:#e3eae9;color:#3a4d4c}
+.stsel.draft{background-color:#fff;color:var(--slate);box-shadow:inset 0 0 0 1.5px var(--line)}
+.r-act{display:flex;gap:6px}
+.ib{width:38px;height:38px;border-radius:12px;border:1.5px solid var(--line);background:#fff;display:grid;place-items:center;color:var(--ink)}
+.ib:hover{border-color:var(--pine)}
+.ib[aria-pressed=true]{background:var(--brass-soft);border-color:var(--brass);color:var(--brass-deep)}
+.ib[aria-pressed=true] .i{fill:currentColor}
+.ib.del:hover{border-color:var(--danger);color:var(--danger)}
+
+.empty{background:#fff;border:1.5px dashed var(--sage);border-radius:26px;padding:46px 20px;text-align:center;display:grid;gap:10px;justify-items:center}
+.empty h3{font-size:1.4rem}
+.empty p{color:var(--slate);max-width:42ch}
+.empty .btn{margin-top:8px}
+
+/* inbox */
+.msgs{display:grid;gap:12px}
+.msg{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px 20px;display:grid;gap:10px}
+.msg.unread{border-color:var(--brass);box-shadow:inset 4px 0 0 var(--brass)}
+.msg-h{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline}
+.msg-h b{font-family:var(--font-display);font-size:1.1rem}
+.msg-h time{color:var(--slate);font-size:.85rem}
+.msg .about{font-size:.88rem;color:var(--slate);display:flex;gap:6px;align-items:center}
+.msg .body{white-space:pre-wrap;max-width:75ch}
+.msg .foot{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.msg .foot .sp{flex:1}
+.cl{display:inline-flex;align-items:center;gap:6px;background:var(--sage-soft);border-radius:999px;padding:.3rem .8rem;font-size:.88rem;font-weight:600;text-decoration:none}
+.cl:hover{background:var(--sage)}
+
+/* settings */
+.panel{background:#fff;border:1px solid var(--line);border-radius:24px;padding:26px;max-width:640px;display:grid;gap:16px}
+.panel p.sub{color:var(--slate)}
+
+/* dialogs */
+dialog{color:var(--ink)}
+dialog::backdrop{background:rgba(10,41,40,.6);backdrop-filter:blur(2px)}
+dialog.editor{margin:0 0 0 auto;padding:0;border:0;height:100vh;height:100dvh;max-height:100dvh;width:min(700px,100%);border-radius:28px 0 0 28px;background:var(--mist);overflow:hidden}
+dialog.editor[open]{animation:slide .28s ease}
+@keyframes slide{from{transform:translateX(44px);opacity:0}}
+.ed{display:flex;flex-direction:column;height:100%}
+.ed-head{padding:18px 24px;border-bottom:1px solid var(--line);background:#fff;display:flex;justify-content:space-between;align-items:center}
+.ed-head h2{font-size:1.5rem}
+.ed-body{padding:22px 24px 28px;overflow:auto;flex:1;display:grid;gap:22px;align-content:start}
+.sec{background:#fff;border:1px solid var(--line);border-radius:22px;padding:20px;display:grid;gap:14px}
+.sec h3{font-size:1.08rem}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.ed-foot{padding:14px 24px;border-top:1px solid var(--line);background:#fff;display:flex;gap:10px;align-items:center}
+.ed-foot .form-msg{flex:1;margin:0}
+.sw{display:flex;align-items:center;gap:12px;font-weight:600;cursor:pointer}
+.sw input{appearance:none;-webkit-appearance:none;width:46px;height:27px;border-radius:999px;background:var(--line);position:relative;margin:0;transition:background .2s;flex:none}
+.sw input::after{content:"";position:absolute;top:3px;left:3px;width:21px;height:21px;border-radius:50%;background:#fff;transition:transform .2s}
+.sw input:checked{background:var(--pine)}
+.sw input:checked::after{transform:translateX(19px)}
+.sw small{display:block;font-weight:400;color:var(--slate)}
+
+.drop{border:2px dashed var(--sage);border-radius:20px;padding:24px;text-align:center;background:var(--mist);cursor:pointer;display:grid;gap:4px;justify-items:center;color:var(--slate)}
+.drop:hover,.drop.over{border-color:var(--pine);background:var(--sage-soft)}
+.drop b{color:var(--ink)}
+.drop .i{width:1.8em;height:1.8em;color:var(--pine-2)}
+.thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:10px}
+.th{position:relative;aspect-ratio:4/3;border-radius:14px;overflow:hidden;background:var(--sage-soft)}
+.th img{width:100%;height:100%;object-fit:cover}
+.th .cov{position:absolute;left:6px;top:6px;background:var(--brass);color:var(--ink);font-size:.72rem;font-weight:700;padding:.12rem .55rem;border-radius:999px}
+.th .acts{position:absolute;right:6px;top:6px;display:flex;gap:4px}
+.th .acts button{width:28px;height:28px;border-radius:50%;border:0;background:rgba(255,255,255,.95);display:grid;place-items:center;font-size:.9rem}
+.th .acts button:hover{background:var(--brass)}
+.th .acts .rm:hover{background:var(--danger);color:#fff}
+.th.up{display:grid;place-items:center}
+.spin{width:26px;height:26px;border-radius:50%;border:3px solid var(--sage);border-top-color:var(--pine);animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tg{display:inline-flex;align-items:center;gap:4px;background:var(--sage-soft);border-radius:999px;padding:.28rem .4rem .28rem .85rem;font-size:.88rem;font-weight:600}
+.tg button{border:0;background:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center}
+.tg button:hover{background:var(--sage)}
+.sug button{border:1.5px dashed var(--sage);background:#fff;border-radius:999px;padding:.25rem .75rem;font-size:.85rem;font-weight:500}
+.sug button:hover{border-color:var(--pine)}
+.sug button[aria-pressed=true]{display:none}
+
+dialog.ask{border:0;border-radius:24px;padding:26px;width:min(420px,calc(100% - 32px));background:#fff}
+dialog.ask h3{font-size:1.4rem}
+dialog.ask p{color:var(--slate);margin:8px 0 22px}
+dialog.ask .acts{display:flex;justify-content:flex-end;gap:10px}
+
+@media (max-width:1020px){
+  .row{grid-template-columns:88px minmax(0,1fr) auto;row-gap:12px}
+  .r-price{grid-column:2}
+  .row .stsel-wrap{grid-column:2}
+  .r-act{grid-column:1/-1;justify-content:flex-end}
+  .stats{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:860px){
+  .shell{grid-template-columns:1fr}
+  .side{position:sticky;z-index:20;height:auto;flex-direction:row;align-items:center;flex-wrap:wrap;padding:10px 12px;gap:4px}
+  .side .mk{padding:0 8px 0 4px;font-size:1.05rem}
+  .side .mk small,.side .sp{display:none}
+  .nb{width:auto;padding:.5rem .8rem;font-size:.9rem}
+  .nb.out{margin-left:auto}
+}
+@media (max-width:640px){
+  dialog.editor{border-radius:0;width:100%}
+  .g2,.g3{grid-template-columns:1fr}
+  .g3.keep{grid-template-columns:repeat(3,1fr)}
+  .row{grid-template-columns:72px minmax(0,1fr)}
+  .th-s{width:72px;height:56px}
+  .r-price,.row .stsel-wrap{grid-column:1/-1}
+}
+</style>
+</head>
+<body>
+<script src="/js/icons.js"></script>
+
+<!-- sign in -->
+<div class="login" id="login">
+  <form class="login-card" id="loginForm" novalidate>
+    <div class="mk">
+      <svg viewBox="0 0 32 32" width="34" height="34" aria-hidden="true"><path d="M3 15L16 4l13 11v13H3z" fill="#0F3B3A"/><rect x="13" y="17" width="6" height="11" rx="1" fill="#E3A72F"/></svg>
+      Ally Rentals
+    </div>
+    <div>
+      <h1>Admin sign-in</h1>
+    </div>
+    <p class="sub">Enter your admin token to manage listings and messages.</p>
+    <div class="field">
+      <label for="tok">Admin token</label>
+      <div class="pw">
+        <input id="tok" type="password" autocomplete="current-password" autocapitalize="off" spellcheck="false" required>
+        <button type="button" id="tokEye" aria-label="Show token"><svg class="i"><use href="#i-eye"/></svg></button>
+      </div>
+    </div>
+    <p class="form-msg" id="loginMsg" role="alert"></p>
+    <button class="btn btn-primary btn-block" type="submit" id="loginBtn">Sign in</button>
+    <a class="back" href="/">Back to the site</a>
+  </form>
+</div>
+
+<!-- app -->
+<div class="shell" id="app" hidden>
+  <aside class="side">
+    <div class="mk">
+      <svg viewBox="0 0 32 32" width="34" height="34" aria-hidden="true"><path d="M3 15L16 4l13 11v13H3z" fill="#BCD3CC"/><rect x="13" y="17" width="6" height="11" rx="1" fill="#E3A72F"/></svg>
+      <span>Ally Rentals<small>Admin</small></span>
+    </div>
+    <button class="nb" data-view="listings" aria-current="page"><svg class="i"><use href="#i-grid"/></svg>Listings</button>
+    <button class="nb" data-view="inbox"><svg class="i"><use href="#i-inbox"/></svg>Messages<span class="bd" id="unread" hidden>0</span></button>
+    <button class="nb" data-view="settings"><svg class="i"><use href="#i-gear"/></svg>Site details</button>
+    <div class="sp"></div>
+    <a class="nb" href="/" target="_blank" rel="noopener"><svg class="i"><use href="#i-ext"/></svg>View site</a>
+    <button class="nb out" id="signOut"><svg class="i"><use href="#i-logout"/></svg>Sign out</button>
+  </aside>
+
+  <main class="main">
+    <section id="v-listings">
+      <div class="top">
+        <div><h1>Listings</h1><p>Add homes, change their status, and choose what shows on the site.</p></div>
+        <button class="btn btn-primary" id="newBtn"><svg class="i"><use href="#i-plus"/></svg>New listing</button>
+      </div>
+      <div class="stats" id="stats"></div>
+      <div class="toolbar">
+        <div class="search"><svg class="i"><use href="#i-search"/></svg><input id="q" type="search" placeholder="Search your listings" aria-label="Search your listings"></div>
+        <div class="seg" id="seg"></div>
+      </div>
+      <div class="rows" id="rows"></div>
+    </section>
+
+    <section id="v-inbox" hidden>
+      <div class="top"><div><h1>Messages</h1><p>Questions sent from the site. Newest first.</p></div></div>
+      <div class="msgs" id="msgs"></div>
+    </section>
+
+    <section id="v-settings" hidden>
+      <div class="top"><div><h1>Site details</h1><p>Contact details shown in the site's contact section and on listings.</p></div></div>
+      <form class="panel" id="setForm" novalidate>
+        <div class="field"><label for="s_phone">Phone</label><input id="s_phone" type="tel" placeholder="(555) 123-4567"></div>
+        <div class="field"><label for="s_email">Email</label><input id="s_email" type="email" placeholder="hello@example.com"></div>
+        <div class="field"><label for="s_address">Office address</label><input id="s_address" placeholder="123 Main Street, City, ST 00000"></div>
+        <div class="field"><label for="s_hours">Office hours</label><input id="s_hours" placeholder="Mon to Fri, 9am to 5pm"></div>
+        <p class="sub">Leave a field empty to hide it on the site.</p>
+        <div><button class="btn btn-primary" type="submit">Save details</button></div>
+      </form>
+    </section>
+  </main>
+</div>
+
+<!-- listing editor -->
+<dialog class="editor" id="editor" aria-labelledby="edHead">
+  <form class="ed" id="eForm" novalidate onsubmit="return false">
+    <div class="ed-head">
+      <h2 id="edHead">New listing</h2>
+      <button class="ib" type="button" id="edClose" aria-label="Close editor"><svg class="i"><use href="#i-x"/></svg></button>
+    </div>
+    <div class="ed-body" id="edBody">
+      <div class="sec">
+        <h3>The basics</h3>
+        <div class="field"><label for="e_title">Listing title</label><input id="e_title" maxlength="120" placeholder="Sunny 3 bedroom near the park"></div>
+        <div class="g2">
+          <div class="field"><label for="e_status">Status</label>
+            <select id="e_status"><option value="available">Available (shows on site)</option><option value="pending">Pending (shows on site)</option><option value="rented">Rented (hidden)</option><option value="draft">Draft (hidden)</option></select></div>
+          <div class="field"><label for="e_type">Home type</label>
+            <select id="e_type"><option>House</option><option>Townhome</option><option>Apartment</option><option>Condo</option><option>Duplex</option><option>Room</option></select></div>
+        </div>
+        <div class="g2">
+          <div class="field"><label for="e_price">Rent per month ($)</label><input id="e_price" type="number" min="0" step="1" inputmode="numeric"></div>
+          <div class="field"><label for="e_deposit">Security deposit ($)</label><input id="e_deposit" type="number" min="0" step="1" inputmode="numeric"></div>
+        </div>
+        <label class="sw"><input type="checkbox" id="e_featured"><span>Feature this home<small>Featured homes appear first and get a badge.</small></span></label>
+      </div>
+
+      <div class="sec">
+        <h3>Location</h3>
+        <div class="field"><label for="e_address">Street address</label><input id="e_address" maxlength="160" autocomplete="off"></div>
+        <div class="g3">
+          <div class="field"><label for="e_city">City</label><input id="e_city" maxlength="80"></div>
+          <div class="field"><label for="e_state">State</label><input id="e_state" maxlength="40"></div>
+          <div class="field"><label for="e_zip">ZIP code</label><input id="e_zip" maxlength="12" inputmode="numeric"></div>
+        </div>
+      </div>
+
+      <div class="sec">
+        <h3>The home</h3>
+        <div class="g3">
+          <div class="field"><label for="e_beds">Bedrooms</label><input id="e_beds" type="number" min="0" step="1" inputmode="numeric" placeholder="0 for studio"></div>
+          <div class="field"><label for="e_baths">Bathrooms</label><input id="e_baths" type="number" min="0" step="0.5" inputmode="decimal"></div>
+          <div class="field"><label for="e_sqft">Square feet</label><input id="e_sqft" type="number" min="0" step="1" inputmode="numeric"></div>
+        </div>
+        <div class="g2">
+          <div class="field"><label for="e_pets">Pets</label>
+            <select id="e_pets"><option>No pets</option><option>Cats OK</option><option>Dogs OK</option><option>Cats and dogs OK</option></select></div>
+          <div class="field"><label for="e_parking">Parking</label><input id="e_parking" maxlength="80" placeholder="2-car garage"></div>
+        </div>
+        <div class="g2">
+          <div class="field"><label for="e_lease">Lease term</label><input id="e_lease" maxlength="60" placeholder="12 months"></div>
+          <div class="field"><label for="e_avail">Available from</label><input id="e_avail" type="date"></div>
+        </div>
+      </div>
+
+      <div class="sec">
+        <h3>Description</h3>
+        <div class="field"><label class="sr" for="e_desc">Description</label><textarea id="e_desc" rows="6" maxlength="5000" placeholder="Describe the home, the neighborhood, and anything a renter should know."></textarea></div>
+        <div class="field">
+          <span class="lbl">What's included</span>
+          <div class="tags" id="amenTags"></div>
+          <input id="amenIn" maxlength="40" placeholder="Type an item and press Enter" aria-label="Add an included item">
+          <div class="tags sug" id="amenSug"></div>
+        </div>
+      </div>
+
+      <div class="sec">
+        <h3>Photos</h3>
+        <label class="drop" id="drop">
+          <svg class="i"><use href="#i-upload"/></svg>
+          <b>Add photos</b>
+          <span>Drop images here or tap to choose. The first photo is the cover.</span>
+          <input type="file" id="file" accept="image/*" multiple hidden>
+        </label>
+        <div class="thumbs" id="thumbs"></div>
+      </div>
+    </div>
+    <div class="ed-foot">
+      <p class="form-msg" id="eMsg" role="alert"></p>
+      <button class="btn btn-line" type="button" id="edCancel">Cancel</button>
+      <button class="btn btn-primary" type="button" id="edSave">Save listing</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog class="ask" id="confirm">
+  <form method="dialog">
+    <h3 id="cTitle"></h3>
+    <p id="cText"></p>
+    <div class="acts">
+      <button class="btn btn-line" value="cancel">Keep it</button>
+      <button class="btn btn-danger" value="ok" id="cOk">Delete</button>
+    </div>
+  </form>
+</dialog>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function () {
+  'use strict';
+  const $ = (s, el) => (el || document).querySelector(s);
+  const $$ = (s, el) => Array.from((el || document).querySelectorAll(s));
+  const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const icon = (n) => '<svg class="i" aria-hidden="true"><use href="#i-' + n + '"/></svg>';
+  const usd = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+  const STATUS = { available: 'Available', pending: 'Pending', rented: 'Rented', draft: 'Draft' };
+  const KEY = 'ally-admin';
+
+  let session = sessionStorage.getItem(KEY) || '';
+  const S = { listings: [], inquiries: [], settings: {}, view: 'listings', q: '', filter: 'all' };
+
+  function toast(msg, bad) {
+    const t = $('#toast'); t.textContent = msg; t.className = 'toast show' + (bad ? ' bad' : '');
+    clearTimeout(toast.t); toast.t = setTimeout(() => { t.className = 'toast'; }, 2600);
+  }
+
+  /* ---------- api ---------- */
+  async function api(path, opt) {
+    opt = opt || {};
+    const headers = {};
+    if (session) headers.Authorization = 'Bearer ' + session;
+    const init = { method: opt.method || 'GET', headers };
+    if (opt.body !== undefined) { headers['Content-Type'] = 'application/json'; init.body = JSON.stringify(opt.body); }
+    const r = await fetch(path, init);
+    const d = await r.json().catch(() => ({}));
+    if (r.status === 401 && session && path !== '/api/admin/login') { signOut(true); throw new Error(d.error || 'Signed out.'); }
+    if (!r.ok) throw new Error(d.error || 'Something went wrong. Try again.');
+    return d;
+  }
+  async function loadAll() {
+    const [l, i, s] = await Promise.all([api('/api/admin/listings'), api('/api/admin/inquiries'), api('/api/admin/settings')]);
+    S.listings = l; S.inquiries = i; S.settings = s;
+  }
+
+  /* ---------- sign in / out ---------- */
+  function showLogin() { $('#login').hidden = false; $('#app').hidden = true; $('#tok').value = ''; setTimeout(() => $('#tok').focus(), 50); }
+  function showApp() { $('#login').hidden = true; $('#app').hidden = false; renderAll(); setView(S.view); }
+  function signOut(expired) {
+    const s = session; session = ''; sessionStorage.removeItem(KEY);
+    if (s && !expired) fetch('/api/admin/logout', { method: 'POST', headers: { Authorization: 'Bearer ' + s } }).catch(() => {});
+    if ($('#editor').open) $('#editor').close();
+    showLogin();
+    if (expired) { $('#loginMsg').textContent = 'Your session ended. Sign in again.'; $('#loginMsg').className = 'form-msg err'; }
+  }
+  $('#tokEye').addEventListener('click', () => {
+    const i = $('#tok'), show = i.type === 'password';
+    i.type = show ? 'text' : 'password';
+    $('#tokEye').innerHTML = icon(show ? 'eyeoff' : 'eye');
+    $('#tokEye').setAttribute('aria-label', show ? 'Hide token' : 'Show token');
+  });
+  $('#loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const msg = $('#loginMsg'), btn = $('#loginBtn');
+    msg.textContent = ''; msg.className = 'form-msg';
+    const token = $('#tok').value.trim();
+    if (!token) { msg.textContent = 'Enter your admin token.'; msg.className = 'form-msg err'; return; }
+    btn.disabled = true; btn.textContent = 'Signing in…';
+    try {
+      session = '';
+      const d = await api('/api/admin/login', { method: 'POST', body: { token } });
+      session = d.session; sessionStorage.setItem(KEY, session);
+      await loadAll();
+      showApp();
+    } catch (err) {
+      session = ''; sessionStorage.removeItem(KEY);
+      msg.textContent = err.message; msg.className = 'form-msg err';
+    } finally { btn.disabled = false; btn.textContent = 'Sign in'; }
+  });
+  $('#signOut').addEventListener('click', () => signOut(false));
+
+  /* ---------- navigation ---------- */
+  function setView(v) {
+    S.view = v;
+    ['listings', 'inbox', 'settings'].forEach((n) => { $('#v-' + n).hidden = n !== v; });
+    $$('.nb[data-view]').forEach((b) => { if (b.dataset.view === v) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current'); });
+    window.scrollTo(0, 0);
+  }
+  $$('.nb[data-view]').forEach((b) => b.addEventListener('click', () => setView(b.dataset.view)));
+
+  function renderAll() { renderStats(); renderSeg(); renderRows(); renderInbox(); renderSettings(); }
+
+  /* ---------- listings ---------- */
+  function renderStats() {
+    const c = (s) => S.listings.filter((l) => l.status === s).length;
+    $('#stats').innerHTML =
+      '<div class="stat ok"><span>Available now</span><b>' + c('available') + '</b></div>' +
+      '<div class="stat"><span>Pending</span><b>' + c('pending') + '</b></div>' +
+      '<div class="stat"><span>Rented</span><b>' + c('rented') + '</b></div>' +
+      '<div class="stat"><span>Drafts</span><b>' + c('draft') + '</b></div>';
+  }
+  function renderSeg() {
+    const opts = [['all', 'All']].concat(Object.entries(STATUS));
+    $('#seg').innerHTML = opts.map(([k, label]) => {
+      const n = k === 'all' ? S.listings.length : S.listings.filter((l) => l.status === k).length;
+      return '<button type="button" data-f="' + k + '" aria-pressed="' + (S.filter === k) + '">' + label + ' (' + n + ')</button>';
+    }).join('');
+  }
+  function rowHTML(l) {
+    const img = l.images && l.images[0];
+    const place = [l.address, [l.city, l.state].filter(Boolean).join(', ')].filter(Boolean).join(', ');
+    return '<div class="row" data-id="' + esc(l.id) + '">' +
+      '<div class="th-s">' + (img ? '<img src="' + esc(img) + '" alt="" loading="lazy">' : icon('image')) + '</div>' +
+      '<div class="r-title"><b>' + esc(l.title) + '</b><span>' + esc(place || 'No address yet') + '</span></div>' +
+      '<div class="r-price">' + usd.format(l.price || 0) + '<small>per month</small></div>' +
+      '<div class="stsel-wrap"><select class="stsel ' + l.status + '" data-stat aria-label="Status for ' + esc(l.title) + '">' +
+        Object.entries(STATUS).map(([k, v]) => '<option value="' + k + '"' + (k === l.status ? ' selected' : '') + '>' + v + '</option>').join('') +
+      '</select></div>' +
+      '<div class="r-act">' +
+        '<button class="ib" type="button" data-act="feat" aria-pressed="' + !!l.featured + '" aria-label="' + (l.featured ? 'Remove from featured' : 'Feature this home') + '" title="Featured">' + icon('star') + '</button>' +
+        '<button class="ib" type="button" data-act="edit" aria-label="Edit ' + esc(l.title) + '" title="Edit">' + icon('edit') + '</button>' +
+        '<button class="ib del" type="button" data-act="del" aria-label="Delete ' + esc(l.title) + '" title="Delete">' + icon('trash') + '</button>' +
+      '</div></div>';
+  }
+  function renderRows() {
+    const q = S.q.toLowerCase();
+    const list = S.listings.filter((l) => (S.filter === 'all' || l.status === S.filter) &&
+      (!q || [l.title, l.address, l.city, l.state, l.zip].join(' ').toLowerCase().includes(q)));
+    const box = $('#rows');
+    if (!S.listings.length) {
+      box.innerHTML = '<div class="empty"><h3>No listings yet</h3><p>Add your first home. Set it to Draft while you work on it, then switch it to Available when it is ready for the site.</p><button class="btn btn-primary" type="button" data-act="new">' + icon('plus') + 'Add your first listing</button></div>';
+    } else if (!list.length) {
+      box.innerHTML = '<div class="empty"><h3>Nothing matches</h3><p>Try a different search or status filter.</p></div>';
+    } else box.innerHTML = list.map(rowHTML).join('');
+  }
+  $('#q').addEventListener('input', (e) => { S.q = e.target.value.trim(); renderRows(); });
+  $('#seg').addEventListener('click', (e) => { const b = e.target.closest('[data-f]'); if (b) { S.filter = b.dataset.f; renderSeg(); renderRows(); } });
+  $('#newBtn').addEventListener('click', () => openEditor(null));
+
+  $('#rows').addEventListener('click', async (e) => {
+    const btn = e.target.closest('[data-act]'); if (!btn) return;
+    if (btn.dataset.act === 'new') return openEditor(null);
+    const id = btn.closest('.row').dataset.id;
+    const l = S.listings.find((x) => x.id === id); if (!l) return;
+    if (btn.dataset.act === 'edit') return openEditor(l);
+    if (btn.dataset.act === 'feat') {
+      try { const u = await api('/api/admin/listings/' + id, { method: 'PATCH', body: { featured: !l.featured } }); Object.assign(l, u); renderRows(); toast(u.featured ? 'Marked as featured' : 'Removed from featured'); }
+      catch (err) { toast(err.message, true); }
+    }
+    if (btn.dataset.act === 'del') {
+      if (!(await ask('Delete this listing?', '"' + l.title + '" and its photos will be removed for good.', 'Delete listing'))) return;
+      try { await api('/api/admin/listings/' + id, { method: 'DELETE' }); S.listings = S.listings.filter((x) => x.id !== id); renderStats(); renderSeg(); renderRows(); toast('Listing deleted'); }
+      catch (err) { toast(err.message, true); }
+    }
+  });
+  $('#rows').addEventListener('change', async (e) => {
+    const sel = e.target.closest('[data-stat]'); if (!sel) return;
+    const id = sel.closest('.row').dataset.id;
+    const l = S.listings.find((x) => x.id === id);
+    try { const u = await api('/api/admin/listings/' + id, { method: 'PATCH', body: { status: sel.value } }); Object.assign(l, u); renderStats(); renderSeg(); renderRows(); toast('Status set to ' + STATUS[u.status]); }
+    catch (err) { toast(err.message, true); renderRows(); }
+  });
+
+  /* ---------- confirm dialog ---------- */
+  function ask(title, text, label) {
+    return new Promise((resolve) => {
+      const d = $('#confirm');
+      $('#cTitle').textContent = title; $('#cText').textContent = text; $('#cOk').textContent = label || 'Delete';
+      d.returnValue = '';
+      d.addEventListener('close', () => resolve(d.returnValue === 'ok'), { once: true });
+      d.showModal();
+    });
+  }
+
+  /* ---------- editor ---------- */
+  const AMEN = ['Washer and dryer', 'Central air', 'Dishwasher', 'Fenced yard', 'Garage', 'Hardwood floors', 'Fireplace', 'Patio or deck', 'Pool', 'Updated kitchen', 'Walk-in closet', 'Storage'];
+  const ed = { id: null, images: [], amen: [], up: 0, dirty: false };
+  const dlg = $('#editor');
+  const val = (id) => $('#' + id).value;
+
+  function eErr(m) { const el = $('#eMsg'); el.textContent = m || ''; el.className = 'form-msg' + (m ? ' err' : ''); }
+  function openEditor(l) {
+    ed.id = l ? l.id : null; ed.images = l ? l.images.slice() : []; ed.amen = l ? l.amenities.slice() : []; ed.up = 0; ed.dirty = false;
+    $('#eForm').reset();
+    $('#edHead').textContent = l ? 'Edit listing' : 'New listing';
+    const set = (id, v) => { $('#' + id).value = v == null ? '' : v; };
+    set('e_title', l && l.title); set('e_status', l ? l.status : 'available'); set('e_type', l ? l.type : 'House');
+    set('e_price', l && l.price ? l.price : ''); set('e_deposit', l && l.deposit ? l.deposit : '');
+    $('#e_featured').checked = !!(l && l.featured);
+    set('e_address', l && l.address); set('e_city', l && l.city); set('e_state', l && l.state); set('e_zip', l && l.zip);
+    set('e_beds', l ? l.beds : ''); set('e_baths', l ? l.baths : ''); set('e_sqft', l && l.sqft ? l.sqft : '');
+    set('e_pets', l ? l.pets : 'No pets'); set('e_parking', l && l.parking); set('e_lease', l && l.leaseTerm); set('e_avail', l && l.availableFrom);
+    set('e_desc', l && l.description);
+    eErr(''); renderPhotos(); renderAmen();
+    dlg.showModal(); $('#edBody').scrollTop = 0;
+  }
+  async function tryClose() {
+    if (ed.dirty && !(await ask('Discard your changes?', 'This listing has edits that are not saved yet.', 'Discard changes'))) return;
+    ed.dirty = false; dlg.close();
+  }
+  dlg.addEventListener('cancel', (e) => { e.preventDefault(); tryClose(); });
+  $('#edClose').addEventListener('click', tryClose);
+  $('#edCancel').addEventListener('click', tryClose);
+  $('#eForm').addEventListener('input', () => { ed.dirty = true; });
+
+  /* photos */
+  function renderPhotos() {
+    let h = ed.images.map((u, i) =>
+      '<div class="th"><img src="' + esc(u) + '" alt="Photo ' + (i + 1) + '">' +
+      (i === 0 ? '<span class="cov">Cover</span>' : '') +
+      '<div class="acts">' + (i > 0 ? '<button type="button" data-cover="' + i + '" aria-label="Make photo ' + (i + 1) + ' the cover" title="Make cover">' + icon('star') + '</button>' : '') +
+      '<button type="button" class="rm" data-rm="' + i + '" aria-label="Remove photo ' + (i + 1) + '" title="Remove">' + icon('x') + '</button></div></div>').join('');
+    for (let k = 0; k < ed.up; k++) h += '<div class="th up" aria-label="Uploading"><span class="spin"></span></div>';
+    $('#thumbs').innerHTML = h;
+  }
+  $('#thumbs').addEventListener('click', (e) => {
+    const c = e.target.closest('[data-cover]'), r = e.target.closest('[data-rm]');
+    if (c) { const i = +c.dataset.cover; ed.images.unshift(ed.images.splice(i, 1)[0]); ed.dirty = true; renderPhotos(); }
+    if (r) { ed.images.splice(+r.dataset.rm, 1); ed.dirty = true; renderPhotos(); }
+  });
+  async function prep(file) {
+    if (file.type === 'image/gif') return file;
+    try {
+      const bmp = await createImageBitmap(file);
+      const s = Math.min(1, 2000 / Math.max(bmp.width, bmp.height));
+      const c = document.createElement('canvas'); c.width = Math.round(bmp.width * s); c.height = Math.round(bmp.height * s);
+      c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
+      const blob = await new Promise((r) => c.toBlob(r, 'image/jpeg', 0.86));
+      return blob || file;
+    } catch (e) { return file; }
+  }
+  async function upload(blob) {
+    if (blob.size > 4 * 1024 * 1024) throw new Error('That photo is over 4 MB. Choose a smaller one.');
+    const r = await fetch('/api/admin/upload', { method: 'POST', headers: { Authorization: 'Bearer ' + session, 'Content-Type': blob.type }, body: blob });
+    const d = await r.json().catch(() => ({}));
+    if (r.status === 401) { signOut(true); throw new Error('Your session ended.'); }
+    if (!r.ok) throw new Error(d.error || 'That photo could not be uploaded.');
+    return d.url;
+  }
+  function addFiles(files) {
+    const imgs = Array.from(files).filter((f) => /^image\//.test(f.type));
+    if (!imgs.length) return eErr('Choose JPG, PNG, WebP or GIF images.');
+    eErr('');
+    imgs.slice(0, Math.max(0, 24 - ed.images.length - ed.up)).forEach((f) => {
+      ed.up++; renderPhotos();
+      prep(f).then(upload).then((url) => { ed.images.push(url); ed.dirty = true; })
+        .catch((err) => eErr(err.message))
+        .finally(() => { ed.up--; renderPhotos(); });
+    });
+  }
+  $('#file').addEventListener('change', (e) => { addFiles(e.target.files); e.target.value = ''; });
+  const drop = $('#drop');
+  ['dragenter', 'dragover'].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.add('over'); }));
+  ['dragleave', 'drop'].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.remove('over'); }));
+  drop.addEventListener('drop', (e) => addFiles(e.dataTransfer.files));
+
+  /* amenities */
+  function renderAmen() {
+    $('#amenTags').innerHTML = ed.amen.map((a, i) => '<span class="tg">' + esc(a) + '<button type="button" data-ra="' + i + '" aria-label="Remove ' + esc(a) + '">' + icon('x') + '</button></span>').join('');
+    $('#amenSug').innerHTML = AMEN.filter((a) => !ed.amen.includes(a)).map((a) => '<button type="button" data-sa="' + esc(a) + '">+ ' + esc(a) + '</button>').join('');
+  }
+  function addAmen(a) { a = a.trim(); if (a && !ed.amen.some((x) => x.toLowerCase() === a.toLowerCase())) { ed.amen.push(a); ed.dirty = true; renderAmen(); } }
+  $('#amenTags').addEventListener('click', (e) => { const b = e.target.closest('[data-ra]'); if (b) { ed.amen.splice(+b.dataset.ra, 1); ed.dirty = true; renderAmen(); } });
+  $('#amenSug').addEventListener('click', (e) => { const b = e.target.closest('[data-sa]'); if (b) addAmen(b.dataset.sa); });
+  $('#amenIn').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ',') { e.preventDefault(); addAmen(e.target.value.replace(/,/g, '')); e.target.value = ''; }
+  });
+  $('#amenIn').addEventListener('blur', (e) => { if (e.target.value.trim()) { addAmen(e.target.value); e.target.value = ''; } });
+
+  /* save */
+  $('#edSave').addEventListener('click', async () => {
+    eErr('');
+    if (ed.up) return eErr('Wait for the photos to finish uploading.');
+    const pending = $('#amenIn').value.trim(); if (pending) { addAmen(pending); $('#amenIn').value = ''; }
+    const body = {
+      title: val('e_title').trim(), status: val('e_status'), type: val('e_type'), featured: $('#e_featured').checked,
+      price: val('e_price'), deposit: val('e_deposit'),
+      address: val('e_address'), city: val('e_city').trim(), state: val('e_state'), zip: val('e_zip'),
+      beds: val('e_beds'), baths: val('e_baths'), sqft: val('e_sqft'),
+      pets: val('e_pets'), parking: val('e_parking'), leaseTerm: val('e_lease'), availableFrom: val('e_avail'),
+      description: val('e_desc'), amenities: ed.amen, images: ed.images,
+    };
+    if (!body.title) return eErr('Add a title for the listing.');
+    if (!body.city) return eErr('Add the city.');
+    if (body.status !== 'draft' && !(Number(body.price) > 0)) return eErr('Add the monthly rent, or set the status to Draft.');
+    const btn = $('#edSave'); btn.disabled = true; btn.textContent = 'Saving…';
+    try {
+      const saved = ed.id ? await api('/api/admin/listings/' + ed.id, { method: 'PUT', body }) : await api('/api/admin/listings', { method: 'POST', body });
+      const i = S.listings.findIndex((x) => x.id === saved.id);
+      if (i > -1) S.listings[i] = saved; else S.listings.unshift(saved);
+      renderStats(); renderSeg(); renderRows();
+      ed.dirty = false; dlg.close();
+      toast(saved.status === 'available' || saved.status === 'pending' ? 'Listing saved and live on the site' : 'Listing saved');
+    } catch (err) { eErr(err.message); }
+    finally { btn.disabled = false; btn.textContent = 'Save listing'; }
+  });
+
+  /* ---------- inbox ---------- */
+  function renderInbox() {
+    const unread = S.inquiries.filter((m) => !m.read).length;
+    const bd = $('#unread'); bd.hidden = !unread; bd.textContent = unread;
+    const box = $('#msgs');
+    if (!S.inquiries.length) { box.innerHTML = '<div class="empty"><h3>No messages yet</h3><p>When someone sends a question from the site, it will show up here.</p></div>'; return; }
+    box.innerHTML = S.inquiries.map((m) => {
+      const when = new Date(m.createdAt).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+      return '<article class="msg' + (m.read ? '' : ' unread') + '" data-id="' + esc(m.id) + '">' +
+        '<div class="msg-h"><b>' + esc(m.name) + '</b><time datetime="' + esc(m.createdAt) + '">' + esc(when) + '</time></div>' +
+        '<div class="about">' + icon('home') + (m.listingTitle ? 'About ' + esc(m.listingTitle) : 'General question') + '</div>' +
+        '<p class="body">' + esc(m.message) + '</p>' +
+        '<div class="foot">' +
+          (m.email ? '<a class="cl" href="mailto:' + esc(m.email) + '">' + icon('mail') + esc(m.email) + '</a>' : '') +
+          (m.phone ? '<a class="cl" href="tel:' + esc(m.phone.replace(/[^\d+]/g, '')) + '">' + icon('phone') + esc(m.phone) + '</a>' : '') +
+          '<span class="sp"></span>' +
+          '<button class="btn btn-line btn-sm" type="button" data-read>' + (m.read ? 'Mark unread' : 'Mark read') + '</button>' +
+          '<button class="ib del" type="button" data-del aria-label="Delete message from ' + esc(m.name) + '">' + icon('trash') + '</button>' +
+        '</div></article>';
+    }).join('');
+  }
+  $('#msgs').addEventListener('click', async (e) => {
+    const card = e.target.closest('.msg'); if (!card) return;
+    const m = S.inquiries.find((x) => x.id === card.dataset.id); if (!m) return;
+    try {
+      if (e.target.closest('[data-read]')) { const u = await api('/api/admin/inquiries/' + m.id, { method: 'PATCH', body: { read: !m.read } }); m.read = u.read; renderInbox(); }
+      if (e.target.closest('[data-del]')) {
+        if (!(await ask('Delete this message?', 'The message from ' + m.name + ' will be removed for good.', 'Delete message'))) return;
+        await api('/api/admin/inquiries/' + m.id, { method: 'DELETE' });
+        S.inquiries = S.inquiries.filter((x) => x.id !== m.id); renderInbox(); toast('Message deleted');
+      }
+    } catch (err) { toast(err.message, true); }
+  });
+
+  /* ---------- settings ---------- */
+  function renderSettings() {
+    const s = S.settings;
+    $('#s_phone').value = s.phone || ''; $('#s_email').value = s.email || ''; $('#s_address').value = s.address || ''; $('#s_hours').value = s.hours || '';
+  }
+  $('#setForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    try {
+      S.settings = await api('/api/admin/settings', { method: 'PUT', body: { phone: val('s_phone'), email: val('s_email'), address: val('s_address'), hours: val('s_hours') } });
+      toast('Site details saved');
+    } catch (err) { toast(err.message, true); }
+  });
+
+  /* ---------- start ---------- */
+  (async function init() {
+    if (!session) return showLogin();
+    try { await loadAll(); showApp(); } catch (e) { session = ''; sessionStorage.removeItem(KEY); showLogin(); }
+  })();
+})();
+</script>
+</body>
+</html>
