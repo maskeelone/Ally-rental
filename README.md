@@ -1,18 +1,32 @@
-# Ally Rentals LLC website
+# Ally Rentals LLC on Netlify
 
-No dependencies. Needs Node 18 or newer. Start with: node server.js
+- Site:  https://YOUR-SITE.netlify.app/
+- Admin: https://YOUR-SITE.netlify.app/admin
 
-- Site:  http://YOUR-IP:PORT/
-- Admin: http://YOUR-IP:PORT/admin   (sign in with your admin token)
+## Deploy (GitHub, recommended)
+1. Create a new PRIVATE GitHub repository and upload everything in this folder to it.
+2. In Netlify: Add new site > Import an existing project > pick the repo.
+   Build settings are read from netlify.toml. Leave the build command empty.
+3. Site configuration > Environment variables > add ADMIN_TOKEN with your admin token.
+4. Deploys > Trigger deploy > Deploy site (so the token is picked up).
+5. Open /admin and sign in.
 
-## Settings (environment variables, all optional)
-- ADMIN_TOKEN   admin token (default: moses7734). Change it before going live.
-- PORT / SERVER_PORT   port (Pterodactyl sets SERVER_PORT for you)
-- DATA_DIR      where listings, messages and photos are saved (default: ./data)
-- TRUST_PROXY=1 set this if the site sits behind nginx or Cloudflare
+## Deploy (Netlify CLI)
+    npm install -g netlify-cli
+    netlify login
+    netlify init        (link or create the site)
+    netlify deploy --prod
 
-## Files
-- server.js          backend and API
-- public/index.html  the public site
-- views/admin.html   the admin page (served at /admin, not linked from the site)
-- data/              your listings, messages and uploaded photos. Back this folder up.
+Drag-and-drop deploys will not work: the backend needs its dependency installed during the build.
+
+## Where things live
+- public/index.html          the public site
+- public/admin/index.html    the admin page
+- netlify/functions/api.mjs  the backend (API, photo hosting, admin sessions)
+- Listings, messages and photos are stored in Netlify Blobs, so they survive redeploys.
+
+## Notes
+- Photos are resized in the browser before upload. The limit is about 4 MB per photo.
+- If ADMIN_TOKEN is not set, the token falls back to moses7734. Set your own before sharing the link.
+- Optional: SESSION_SECRET adds an extra secret for signing admin sessions.
+- Local preview: npm install, then npx netlify dev.
